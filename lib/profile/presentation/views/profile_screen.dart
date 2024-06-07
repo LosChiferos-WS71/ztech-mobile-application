@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:ztech_mobile_application/common/widgets/confirmation_dialog.dart'; // Importa el diálogo
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,6 +18,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ConfirmationDialog(
+          message: 'Are you sure you want to log out?',
+          onYesPressed: () {
+            // Lógica para cerrar sesión
+            Navigator.of(context).pop(); // Cierra el diálogo
+          },
+          onNoPressed: () {
+            Navigator.of(context).pop(); // Cierra el diálogo
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -45,11 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   IconButton(
                     icon: const Icon(Icons.power_settings_new,
                         color: Colors.red), // Icono como en la imagen
-                    onPressed: () {
-                      // Aquí añades lo que debe hacer el botón
-                      // ignore: avoid_print
-                      print("Power button pressed");
-                    },
+                    onPressed: _showLogoutDialog,
                     iconSize: 35, // Tamaño del icono
                   ),
                 ],
@@ -155,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       onPressed: () {
-    Navigator.pushNamed(context, 'edit_profile');
+                        Navigator.pushNamed(context, 'edit_profile');
                         // Lógica al presionar el botón
                       },
                       child: const Text('Edit Profile'),
