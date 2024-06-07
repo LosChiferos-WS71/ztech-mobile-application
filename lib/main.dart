@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_metrics_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
         'login': (context) => LoginScreen(),
         'home': (context) => HomeScreen(),
         'potdetail': (context) => FlowerpotDetailScreen(),
+        'flowerpot_metrics': (context) => FlowerpotMetricsScreen(),
+
       },
     );
   }

@@ -31,7 +31,7 @@ class _FlowerpotDetailScreenState extends State<FlowerpotDetailScreen> {
           children: <Widget>[
             buildCustomAppBar(context),
             const PlantInfoComponent(),
-            buildButtons(),
+            buildButtons(context),
             const RecommendationComponent(),
           ],
         ),
@@ -70,7 +70,7 @@ class _FlowerpotDetailScreenState extends State<FlowerpotDetailScreen> {
   }
 }
 
-Widget buildButtons() {
+Widget buildButtons(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Row(
@@ -78,7 +78,10 @@ Widget buildButtons() {
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'flowerpot_metrics');
+
+            },
             // ignore: sort_child_properties_last
             child: const Text(
               'See stats',
