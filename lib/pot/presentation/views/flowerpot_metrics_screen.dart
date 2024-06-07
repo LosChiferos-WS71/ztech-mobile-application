@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:ztech_mobile_application/pot/presentation/widgets/flowerpot_dashboard.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/flowerpot_info.dart';
 
 class FlowerpotMetricsScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _FlowerpotMetricsScreenState extends State<FlowerpotMetricsScreen> {
           children: <Widget>[
             buildCustomAppBar(context),
             const PlantInfoComponent(),
+            const PlantChartsComponent()
           ],
         ),
       ),
@@ -52,7 +54,7 @@ class _FlowerpotMetricsScreenState extends State<FlowerpotMetricsScreen> {
             iconSize: 36,
             onPressed: () => Navigator.of(context).pop(),
           ),
-          const Text('POT 1',
+          const Text('PLANT 1',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 36,
