@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _HomeScreenState createState() => _HomeScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0; // Dejarlo en 0 para que muestre la primera vista
 
   void _onItemTapped(int index) {

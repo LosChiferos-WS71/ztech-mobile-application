@@ -23,6 +23,7 @@ class CustomNavigationBar extends StatelessWidget {
         NavigationDestination(
           icon: Icon(Icons.add),
           label: 'Add',
+          
         ),
         NavigationDestination(
           icon: Icon(Icons.nature),
