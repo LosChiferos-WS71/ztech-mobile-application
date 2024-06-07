@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         'welcome': (context) => WelcomeScreen(),
         'login': (context) => LoginScreen(),
         'home': (context) => HomeScreen(),
+        'addPot': (context) => AddPotScreen(),
       },
     );
   }
