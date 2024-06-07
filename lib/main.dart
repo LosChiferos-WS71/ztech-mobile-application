@@ -4,6 +4,7 @@ import 'package:ztech_mobile_application/profile/presentation/views/welcome_scre
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/home_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/profile_screen.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/edit_profile_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         'login': (context) => const LoginScreen(),
         'home': (context) => const HomeScreen(),
         'profile': (context) => const ProfileScreen(),
+        'edit_profile': (context) => const EditProfileScreen(),
       },
     );
   }
