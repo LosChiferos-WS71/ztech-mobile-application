@@ -20,11 +20,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => SplashScreen(),
-        'welcome': (context) => WelcomeScreen(),
-        'login': (context) => LoginScreen(),
-        'home': (context) => HomeScreen(),
-        'profile': (context) => ProfileScreen(),
+        '/': (context) => const SplashScreen(),
+        'welcome': (context) => const WelcomeScreen(),
+        'login': (context) => const LoginScreen(),
+        'home': (context) => const HomeScreen(),
+        'profile': (context) => const ProfileScreen(),
       },
     );
   }

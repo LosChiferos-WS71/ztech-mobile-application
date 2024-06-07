@@ -4,14 +4,14 @@ import 'package:ztech_mobile_application/common/widgets/diagonal_background_pain
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
+  
   @override
   // ignore: library_private_types_in_public_api
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 0; // Dejarlo en 0 para que muestre la primera vista
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,41 +24,154 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: CustomPaint(
         painter: DiagonalBackgroundPainter(),
-        child: Center(
-          child: _selectedIndex ==3 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Enter the plant you want to search for',
-                          border: OutlineInputBorder(),
-                        ),
+        child: ListView(
+          // Changed from Center to ListView for scrolling
+          children: <Widget>[
+            // Profile Header
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceBetween, // Alinea los hijos a ambos extremos
+                children: [
+                  const Text(
+                    "Profile",
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.power_settings_new,
+                        color: Colors.red), // Icono como en la imagen
+                    onPressed: () {
+                      // Aquí añades lo que debe hacer el botón
+                      // ignore: avoid_print
+                      print("Power button pressed");
+                    },
+                    iconSize: 35, // Tamaño del icono
+                  ),
+                ],
+              ),
+            ),
+
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(
+                        2), // Ajusta el espacio para el borde
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white, // Color del borde
+                        width: 4, // Grosor del borde
                       ),
                     ),
-                    Image.asset(
-                      'assets/Logo-ztech-inicio.png',
-                      width: 250,
-                      height: 250,
+                    child: const CircleAvatar(
+                      radius: 75, // Tamaño del CircleAvatar
+                      backgroundImage: NetworkImage(
+                          'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTLeEbVLhXC_1HLLrigOfSU4C1hRPwu3f4AVcb3oIBzSDPnKcEEO57gfInoZHkgujFV-Vf3SwiuUcNI2x4'),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Not found',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            50), // Ajusta esto para cambiar el ancho del Divider
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 2,
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Sorry, the keyword you entered cannot be found. Please check again or search with another keyword.',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )
-              : const Center(
-                  child: Text('Other Page'),
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  infoSection(
+                    title: 'Name and lastname:',
+                    content: 'Emma Myers',
+                    backgroundColor: const Color(0xFFEDEDED),
+                       width: MediaQuery.of(context).size.width *
+                            0.76,
+                  ),
+                  infoSection(
+                    title: 'Email:',
+                    content: 'emma@gmail.com',
+                    backgroundColor: const Color(0xFFEDEDED),
+                       width: MediaQuery.of(context).size.width *
+                            0.76,
+                  ),
+                  infoSection(
+                    title: 'Adress:',
+                    content: 'Mz k3 Lote 43 - Pasaje villa lobos',
+                    backgroundColor: const Color(0xFFEDEDED),
+                       width: MediaQuery.of(context).size.width *
+                            0.76,
+                  ),
+                  infoSection(
+                    title: 'Birthdate:',
+                    content: 'September 1, 2001',
+                    backgroundColor: const Color(0xFFEDEDED),
+                     width: MediaQuery.of(context).size.width *
+                            0.76,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceEvenly, // Alinea los widgets de manera uniforme en la fila
+                    children: [
+                      infoSection(
+                        title: 'Gender:',
+                        content: 'Male',
+                        backgroundColor: const Color(0xFFEDEDED),
+                        width: MediaQuery.of(context).size.width *
+                            0.32, // Aproximadamente 40% del ancho de la pantalla
+                      ),
+                      infoSection(
+                        title: 'Phone:',
+                        content: '987 654 321',
+                        backgroundColor: const Color(0xFFEDEDED),
+                        width: MediaQuery.of(context).size.width *
+                            0.32, // Aproximadamente 50% del ancho de la pantalla
+                      ),
+                    ],
+                  ),
+                  infoSection(
+                    title: 'Password:',
+                    content: 'asdadsdasdas',
+                    backgroundColor: const Color(0xFFEDEDED),
+                      isPassword: true,  // Activa la lógica de la contraseña
+                         width: MediaQuery.of(context).size.width *
+                            0.76,
+
+                  ),
+                  const SizedBox(height: 10),
+                 SizedBox(
+  width: 300, // Ancho específico del botón
+  height: 60, // Alto específico del botón
+  child: ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFF276749),
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50), // Radio del borde redondeado
+      ),
+      textStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    onPressed: () {
+      // Lógica al presionar el botón
+    },
+    child: Text('Edit Profile'),
+  ),
+),
+
+                                    const SizedBox(height: 20),
+
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -68,3 +181,265 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+Widget infoSection({
+  required String title,
+  required String content,
+  required Color backgroundColor,
+  double width = double.infinity,
+  bool isPassword = false,
+}) {
+  bool _passwordVisible = false; // Inicializar fuera de StatefulBuilder
+
+  return Container(
+    width: width,
+    margin: EdgeInsets.only(bottom: 10),
+    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (!isPassword)
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        if (!isPassword)
+          Text(
+            content,
+            style: TextStyle(fontSize: 16),
+          ),
+        if (isPassword)
+          StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        Text(
+                          _passwordVisible ? content : '••••••••',  // Cambia entre contenido real y puntos
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(_passwordVisible ? Icons.visibility : Icons.visibility_off),
+                    iconSize: 24,
+                    onPressed: () {
+                      setState(() => _passwordVisible = !_passwordVisible);  // Cambia el estado de visibilidad correctamente
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+      ],
+    ),
+  );
+}
+
+
+/*
+import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
+import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+  
+  @override
+  // ignore: library_private_types_in_public_api
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  int _selectedIndex = 3;
+  bool _passwordVisible = false;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomPaint(
+        painter: DiagonalBackgroundPainter(),
+        child: ListView(
+          // Changed from Center to ListView for scrolling
+          children: <Widget>[
+            // Profile Header
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceBetween, // Alinea los hijos a ambos extremos
+                children: [
+                  const Text(
+                    "Profile",
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.power_settings_new,
+                        color: Colors.red), // Icono como en la imagen
+                    onPressed: () {
+                      // Aquí añades lo que debe hacer el botón
+                      // ignore: avoid_print
+                      print("Power button pressed");
+                    },
+                    iconSize: 35, // Tamaño del icono
+                  ),
+                ],
+              ),
+            ),
+
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(
+                        2), // Ajusta el espacio para el borde
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white, // Color del borde
+                        width: 4, // Grosor del borde
+                      ),
+                    ),
+                    child: const CircleAvatar(
+                      radius: 75, // Tamaño del CircleAvatar
+                      backgroundImage: NetworkImage(
+                          'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTLeEbVLhXC_1HLLrigOfSU4C1hRPwu3f4AVcb3oIBzSDPnKcEEO57gfInoZHkgujFV-Vf3SwiuUcNI2x4'),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            50), // Ajusta esto para cambiar el ancho del Divider
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  infoSection(
+                    title: 'Name and lastname:',
+                    content: 'Emma Myers',
+                    backgroundColor: const Color(0xFFEDEDED),
+                  ),
+                  infoSection(
+                    title: 'Email:',
+                    content: 'emma@gmail.com',
+                    backgroundColor: const Color(0xFFEDEDED),
+                  ),
+                  infoSection(
+                    title: 'Adress:',
+                    content: 'Mz k3 Lote 43 - Pasaje villa lobos',
+                    backgroundColor: const Color(0xFFEDEDED),
+                  ),
+                  infoSection(
+                    title: 'Birthdate:',
+                    content: 'September 1, 2001',
+                    backgroundColor: const Color(0xFFEDEDED),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceEvenly, // Alinea los widgets de manera uniforme en la fila
+                    children: [
+                      infoSection(
+                        title: 'Gender:',
+                        content: 'Male',
+                        backgroundColor: const Color(0xFFEDEDED),
+                        width: MediaQuery.of(context).size.width *
+                            0.32, // Aproximadamente 40% del ancho de la pantalla
+                      ),
+                      infoSection(
+                        title: 'Phone:',
+                        content: '987 654 321',
+                        backgroundColor: const Color(0xFFEDEDED),
+                        width: MediaQuery.of(context).size.width *
+                            0.32, // Aproximadamente 50% del ancho de la pantalla
+                      ),
+                    ],
+                  ),
+                  infoSection(
+                    title: 'Password:',
+                    content: 'asdadsdasdas',
+                    backgroundColor: const Color(0xFFEDEDED),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Logic to edit profile
+                    },
+                    child: const Text('Edit Profile'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onItemTapped,
+      ),
+    );
+  }
+}
+
+Widget infoSection({
+  required String title,
+  required String content,
+  required Color backgroundColor,
+  double width = 320, // Ancho por defecto, ajustable según sea necesario
+}) {
+  return Container(
+    width: width,
+    margin: const EdgeInsets.only(
+        bottom: 10,
+        right:
+            5), // Agrega un pequeño margen a la derecha para separar las secciones
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          content,
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+ */
