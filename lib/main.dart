@@ -3,7 +3,6 @@ import 'package:ztech_mobile_application/profile/presentation/views/register_scr
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
-import 'package:ztech_mobile_application/profile/presentation/views/choose_plant_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         'welcome': (context) => WelcomeScreen(),
         'login': (context) => LoginScreen(),
-        'choose-plant': (context) => ChoosePlantScreen(),
         'register': (context) => SignUpScreen(),
       },
     );

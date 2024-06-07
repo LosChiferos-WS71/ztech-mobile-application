@@ -47,7 +47,7 @@ class CustomNavigationBar extends StatelessWidget {
         Navigator.pushNamed(context, 'home');
         break;
       case 1:
-        Navigator.pushNamed(context, 'choose-plant');
+        Navigator.pushNamed(context, 'home');
         break;
       case 2:
         Navigator.pushNamed(context, 'home');
