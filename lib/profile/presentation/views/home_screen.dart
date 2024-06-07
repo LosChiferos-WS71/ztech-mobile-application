@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         painter: DiagonalBackgroundPainter(),
         child: Center(
           child: _selectedIndex ==
-                  2 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
+                  1 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
