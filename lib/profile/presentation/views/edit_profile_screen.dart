@@ -20,7 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController addressController = TextEditingController(text: 'Mz k3 Lote 43 - Pasaje villa lobos');
   final TextEditingController birthdateController = TextEditingController(text: 'September 1, 2001');
   final TextEditingController genderController = TextEditingController(text: 'Male');
-  final TextEditingController phoneController = TextEditingController(text: '987 654 321');
+  final TextEditingController phoneController = TextEditingController(text: '987654321');
   final TextEditingController newPasswordController = TextEditingController(text: '');
     final TextEditingController repeatPasswordController = TextEditingController(text: '');
 
