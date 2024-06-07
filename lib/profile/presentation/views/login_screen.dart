@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'choose-plant');
+                      Navigator.pushNamed(context, 'home');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),

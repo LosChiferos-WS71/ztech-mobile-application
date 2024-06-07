@@ -25,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomPaint(
         painter: DiagonalBackgroundPainter(),
         child: Center(
-          child: _selectedIndex ==3 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
-              ? Column(
+          child: // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
+              Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     const Padding(
@@ -56,9 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 )
-              : const Center(
-                  child: Text('Other Page'),
-                ),
+              
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
