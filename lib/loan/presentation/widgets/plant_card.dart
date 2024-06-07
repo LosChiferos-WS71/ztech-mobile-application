@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/loan/domain/plant.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/configuration_flowerpot.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/loaded_plant_screen.dart';
 
 class PlantCard extends StatelessWidget {
   final Plant plant;
@@ -12,7 +15,17 @@ class PlantCard extends StatelessWidget {
         child: InkWell(
       splashColor: Colors.grey,
       onTap: () {
-        // mensaje
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoadingScreen()),
+        );
+        // Esperar 3 segundos y luego navegar a la siguiente pantalla
+        Timer(Duration(seconds: 3), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ConfigureFlowerPot()),
+          );
+        });
       },
       child: SizedBox(
         width: 150,
