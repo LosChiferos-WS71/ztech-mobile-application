@@ -6,26 +6,25 @@ class ConfirmationDialog extends StatelessWidget {
   final VoidCallback onNoPressed;
 
   const ConfirmationDialog({
-    Key? key,
+    super.key,
     required this.message,
     required this.onYesPressed,
     required this.onNoPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.transparent, // Hacer el fondo del diálogo transparente
-                        //backgroundColor: Colors.white.withOpacity(0.5), // Fondo semitransparente
+      backgroundColor:
+          Colors.transparent, // Hacer el fondo del diálogo transparente
+      //backgroundColor: Colors.white.withOpacity(0.5), // Fondo semitransparente
 
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-        
       ),
       child: Container(
-        
         decoration: BoxDecoration(
-                        //color: Colors.white.withOpacity(0.5), // Fondo semitransparente
+          //color: Colors.white.withOpacity(0.5), // Fondo semitransparente
 
           borderRadius: BorderRadius.circular(20),
         ),
@@ -42,7 +41,10 @@ class ConfirmationDialog extends StatelessWidget {
                 ),
                 child: Text(
                   message,
-                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -54,13 +56,17 @@ class ConfirmationDialog extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: onYesPressed,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:const Color(0xFF276749),
+                        backgroundColor: const Color(0xFF276749),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 15), // Aumentar el alto del botón
-                        textStyle: const TextStyle(fontSize: 28,fontWeight: FontWeight.w500), // Aumentar el tamaño de la letra
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15), // Aumentar el alto del botón
+                        textStyle: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight
+                                .w500), // Aumentar el tamaño de la letra
                       ),
                       child: const Text('Yes'),
                     ),
@@ -71,13 +77,17 @@ class ConfirmationDialog extends StatelessWidget {
                       onPressed: onNoPressed,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF05959),
-                                                foregroundColor: Colors.white,
+                        foregroundColor: Colors.white,
 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 15), // Aumentar el alto del botón
-                        textStyle: const TextStyle(fontSize: 28,fontWeight: FontWeight.w500), // Aumentar el tamaño de la letra
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15), // Aumentar el alto del botón
+                        textStyle: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight
+                                .w500), // Aumentar el tamaño de la letra
                       ),
                       child: const Text('No'),
                     ),
@@ -91,5 +101,3 @@ class ConfirmationDialog extends StatelessWidget {
     );
   }
 }
-
-
