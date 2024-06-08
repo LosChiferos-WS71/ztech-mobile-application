@@ -5,48 +5,59 @@ class PlantInfoComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      padding: const EdgeInsets.all(0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFEDEDED),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 2,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                'https://cdn0.ecologiaverde.com/es/posts/0/7/8/como_crecen_las_plantas_2870_orig.jpg',
-                fit: BoxFit
-                    .cover, // Use BoxFit.fill to make sure the image covers the full area
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: const Color(0xFFEDEDED),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              flex: 2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  'assets/Logo-ztech-inicio.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 20),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoColumn(), // Info Column for icons and data
-                      const SizedBox(width: 10),
-                      infoTextColumn(), // Text Column for "high" texts
-                    ],
-                  ),
-                ],
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 50, right: 10), // Ajustar padding
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.start, // Alinear hacia la izquierda
+                      mainAxisSize:
+                          MainAxisSize.max, // Minimizar el tamaño de la fila
+                      children: [
+                        Flexible(
+                          child: infoColumn(), // Info Column for icons and data
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child:
+                              infoTextColumn(), // Text Column for "high" texts
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ),
+      );
+    });
   }
 
   Widget infoColumn() {
@@ -73,7 +84,7 @@ class PlantInfoComponent extends StatelessWidget {
 
   Widget infoText(String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(text,
           style: const TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red)),
@@ -85,11 +96,12 @@ class PlantInfoComponent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, color: Colors.green, size: 30),
+          Icon(icon, color: Colors.green, size: 24), // Reducir tamaño de icono
           const SizedBox(width: 10),
           Text(text,
-              style:
-                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)), // Reducir tamaño de texto
         ],
       ),
     );
