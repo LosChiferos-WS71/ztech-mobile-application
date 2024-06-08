@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         'flowerpots': (context) => FlowerpotsScreen(),
         'potdetail': (context) => FlowerpotDetailScreen(),
         'flowerpot_metrics': (context) => FlowerpotMetricsScreen(),
+        
       },
     );
   }
