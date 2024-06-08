@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/choose_plant_screen.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/register_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         'edit_profile': (context) => const EditProfileScreen(),
         'register': (context) => SignUpScreen(),
         'choose-plant': (context) => ChoosePlantScreen(),
+        'addPot': (context) => AddPotScreen(),
       },
     );
   }
