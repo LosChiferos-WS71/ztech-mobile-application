@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_detail_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/top_bar.dart';
 import 'package:ztech_mobile_application/pot/domain/user.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/card_plant.dart';
@@ -12,7 +13,7 @@ class FlowerpotsScreen extends StatefulWidget {
 }
 
 class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
-    int _selectedIndex = 0;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -70,21 +71,32 @@ class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
                         itemBuilder: (context, index) {
                           if (index < snapshot.data!.plants.length) {
                             return CardPlant(
-                                plantInfo: snapshot.data!.plants[index]);
+                              plantInfo: snapshot.data!.plants[index],
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        FlowerpotDetailScreen(), // Aquí puedes pasar datos si es necesario
+                                  ),
+                                );
+                              },
+                            );
                           } else {
-                            // Botón '+' más pequeño y ajustado
+                            // Botón '+' para agregar más plantas
                             return Center(
                               child: RawMaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  // Implementa la acción para agregar una nueva planta
+                                },
                                 elevation: 2.0,
                                 fillColor: Color(0xFFEDEDED),
                                 child: Icon(
                                   Icons.add,
-                                  size: 50.0, // Tamaño del icono reducido
+                                  size: 50.0,
                                   color: Colors.black,
                                 ),
-                                padding: EdgeInsets.all(
-                                    15.0), // Espacio alrededor del icono ajustado para un botón más pequeño
+                                padding: EdgeInsets.all(15.0),
                                 shape: CircleBorder(),
                               ),
                             );
@@ -106,7 +118,7 @@ class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
           ],
         ),
       ),
-       bottomNavigationBar: CustomNavigationBar(
+      bottomNavigationBar: CustomNavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,
       ),
