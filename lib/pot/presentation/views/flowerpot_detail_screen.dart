@@ -80,7 +80,6 @@ Widget buildButtons(BuildContext context) {
           child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, 'flowerpot_metrics');
-
             },
             // ignore: sort_child_properties_last
             child: const Text(

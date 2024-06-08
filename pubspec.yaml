@@ -71,6 +71,8 @@ flutter:
     - assets/plant1.png
     - assets/plant2.png
     - assets/plant3.png
+    - assets/Add-Image.png
+    - assets/plants_available.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

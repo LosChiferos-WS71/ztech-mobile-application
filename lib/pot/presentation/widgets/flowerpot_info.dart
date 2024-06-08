@@ -5,91 +5,105 @@ class PlantInfoComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      padding: const EdgeInsets.all(0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFEDEDED),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 2,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                'https://cdn0.ecologiaverde.com/es/posts/0/7/8/como_crecen_las_plantas_2870_orig.jpg',
-                fit: BoxFit
-                    .cover, // Use BoxFit.fill to make sure the image covers the full area
+    // Obtener el ancho de la pantalla
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: 10),
+        padding: EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: const Color(0xFFEDEDED),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              flex: 2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  'https://ojo.pe/resizer/SWeUdUMtIFlYLaiRvd21MLLELnc=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/BKVJFTCTUFEBDLRPZW46RBOW3A.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 20),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoColumn(), // Info Column for icons and data
-                      const SizedBox(width: 10),
-                      infoTextColumn(), // Text Column for "high" texts
-                    ],
-                  ),
-                ],
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.12, right: 10), // Ajustar padding basado en el ancho de la pantalla
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Flexible(
+                          child: infoColumn(screenWidth), // Pasa screenWidth como parámetro
+                        ),
+                        SizedBox(width: 10),
+                        Flexible(
+                          child: infoTextColumn(screenWidth), // Pasa screenWidth como parámetro
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ),
+      );
+    });
   }
 
-  Widget infoColumn() {
+  Widget infoColumn(double screenWidth) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        infoRow(Icons.thermostat, "30°"),
-        infoRow(Icons.opacity, "75%"),
-        infoRow(Icons.wb_sunny, "4 UV"),
+        infoRow(Icons.thermostat, "30°", screenWidth),
+        infoRow(Icons.opacity, "75%", screenWidth),
+        infoRow(Icons.wb_sunny, "4 UV", screenWidth),
       ],
     );
   }
 
-  Widget infoTextColumn() {
+  Widget infoTextColumn(double screenWidth) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        infoText("high"),
-        infoText("high"),
-        infoText("high"),
+        infoText("high", screenWidth),
+        infoText("high", screenWidth),
+        infoText("high", screenWidth),
       ],
     );
   }
 
-  Widget infoText(String text) {
+  Widget infoText(String text, double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Text(text,
-          style: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red)),
+          style: TextStyle(
+              fontSize: screenWidth * 0.04, // Ajustar tamaño de fuente basado en el ancho de la pantalla
+              fontWeight: FontWeight.bold,
+              color: Colors.red)),
     );
   }
 
-  Widget infoRow(IconData icon, String text) {
+  Widget infoRow(IconData icon, String text, double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Icon(icon, color: Colors.green, size: 30),
-          const SizedBox(width: 10),
+          Icon(icon, color: Colors.green, size: screenWidth * 0.06), // Ajustar tamaño del icono
+          SizedBox(width: 10),
           Text(text,
-              style:
-                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              style: TextStyle(
+                  fontSize: screenWidth * 0.045, // Ajustar tamaño de fuente
+                  fontWeight: FontWeight.bold)),
         ],
       ),
     );

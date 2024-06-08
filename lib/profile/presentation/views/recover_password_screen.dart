@@ -26,19 +26,19 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 40),
+                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
                       icon: Icon(Icons.arrow_back),
+                      color: Colors.black,
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
                 Image.asset(
                   'assets/Logo-ztech-inicio.png',
                   width: 250,
@@ -87,7 +87,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
-                    padding: EdgeInsets.symmetric(horizontal: 140, vertical: 15),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 140, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
