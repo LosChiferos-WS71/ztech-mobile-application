@@ -25,7 +25,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: Colors.black,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                   Image.asset(
                     'assets/Logo-ztech-inicio.png',
                     width: 250,
@@ -106,7 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'flowerpots');
-                       
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),
@@ -135,32 +144,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               // Aquí puedes manejar la navegación a la pantalla de recuperación de contraseña
-                                                 Navigator.pushNamed(context, 'recover-password');
-
+                              Navigator.pushNamed(context, 'recover-password');
                             },
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        const TextSpan(
-                          text: 'You do not have an account? ',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: 'Enter Here',
-                          style: const TextStyle(color: Color(0xFF276749)),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // Aquí puedes manejar la navegación a la pantalla de registro
-                            },
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'You do not have an account? ',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          TextSpan(
+                            text: 'Enter Here',
+                            style: const TextStyle(color: Color(0xFF276749)),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushNamed(context, 'register');
+                              },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
