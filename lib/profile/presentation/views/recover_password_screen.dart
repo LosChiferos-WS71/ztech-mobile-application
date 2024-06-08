@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/email_sent_screen.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
@@ -77,7 +78,12 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmailSentScreen(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
