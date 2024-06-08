@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/top_bar.dart';
-import 'package:ztech_mobile_application/pot/domain/user.dart'; // Asegúrate de que la ruta de importación esté correcta
-import 'package:ztech_mobile_application/pot/presentation/widgets/card_plant.dart'; // Importa tu widget CardPlant
-import 'package:ztech_mobile_application/pot/infrastructure/user_repository.dart'; // Importa el UserRepository
+import 'package:ztech_mobile_application/pot/domain/user.dart';
+import 'package:ztech_mobile_application/pot/presentation/widgets/card_plant.dart';
+import 'package:ztech_mobile_application/pot/infrastructure/user_repository.dart';
 
 class FlowerpotsScreen extends StatefulWidget {
   @override
@@ -12,50 +12,91 @@ class FlowerpotsScreen extends StatefulWidget {
 }
 
 class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
-  int _selectedIndex = 0; // Este índice representa la pantalla "Flowerpots"
+  int _selectedIndex = 0;
   Future<User>? user;
 
   @override
   void initState() {
     super.initState();
-    UserRepository userRepository =
-        UserRepository(); // Instancia de tu UserRepository
-    user = userRepository.getUser(); // Obtiene el usuario y las plantas
+    UserRepository userRepository = UserRepository();
+    user = userRepository.getUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopBar(), // Usa tu AppBar personalizado
+      appBar: TopBar(),
       body: CustomPaint(
         painter: DiagonalBackgroundPainter(),
-        child: FutureBuilder<User>(
-          future: user,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                return GridView.builder(
-                  padding: EdgeInsets.all(15),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Dos columnas
-                    crossAxisSpacing: 10, // Espacio horizontal
-                    mainAxisSpacing: 10, // Espacio vertical
-                    childAspectRatio: 0.8, // Aspecto de las tarjetas
-                  ),
-                  itemCount: snapshot.data!.plants.length,
-                  itemBuilder: (context, index) {
-                    return CardPlant(plantInfo: snapshot.data!.plants[index]);
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                    child: Text('Error al cargar datos: ${snapshot.error}'));
-              }
-            }
-            return Center(
-                child:
-                    CircularProgressIndicator()); // Muestra un spinner de carga
-          },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(
+                "POTS",
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.2,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              child: FutureBuilder<User>(
+                future: user,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      int itemCount = snapshot.data!.plants.length +
+                          1; // +1 para el botón de '+'
+                      return GridView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.8,
+                        ),
+                        itemCount: itemCount,
+                        itemBuilder: (context, index) {
+                          if (index < snapshot.data!.plants.length) {
+                            return CardPlant(
+                                plantInfo: snapshot.data!.plants[index]);
+                          } else {
+                            // Botón '+' más pequeño y ajustado
+                            return Center(
+                              child: RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 2.0,
+                                fillColor: Color(0xFFEDEDED),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 50.0, // Tamaño del icono reducido
+                                  color: Colors.black,
+                                ),
+                                padding: EdgeInsets.all(
+                                    15.0), // Espacio alrededor del icono ajustado para un botón más pequeño
+                                shape: CircleBorder(),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                          child:
+                              Text('Error al cargar datos: ${snapshot.error}'));
+                    }
+                  }
+                  return Center(
+                      child:
+                          CircularProgressIndicator()); // Muestra un spinner de carga
+                },
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -64,8 +105,6 @@ class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
           if (index != _selectedIndex) {
             setState(() {
               _selectedIndex = index;
-              // Agrega la lógica para cambiar de pantalla
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => YourNewScreen()));
             });
           }
         },
