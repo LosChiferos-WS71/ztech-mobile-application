@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart'; // Importa el app bar de navegación si lo necesitas
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:ztech_mobile_application/loan/presentation/widgets/addpot_invalid_code_screen.dart';
+import 'package:ztech_mobile_application/loan/presentation/widgets/addpot_valid_code_screen.dart';
+
 
 class AddPotScreen extends StatefulWidget {
   @override
@@ -10,10 +13,31 @@ class AddPotScreen extends StatefulWidget {
 class _AddPotScreenState extends State<AddPotScreen> {
   int _selectedIndex = 0; // Dejarlo en 0 para que muestre la primera vista
 
+  // Lista de códigos válidos simulados
+  final List<String> validCodes = ['A1B2C', 'D3E4F', 'G5H6I'];
+
+  // Controladores para los TextFields
+  final List<TextEditingController> _controllers = List.generate(5, (_) => TextEditingController());
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _validateCode() {
+    String enteredCode = _controllers.map((controller) => controller.text).join();
+    if (validCodes.contains(enteredCode)) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AddPotValidCodeScreen()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AddPotInvalidCodeScreen()),
+      );
+    }
   }
 
   @override
@@ -34,7 +58,22 @@ class _AddPotScreenState extends State<AddPotScreen> {
                     color: Colors.white,
                   ),
                 ),
-                backgroundColor: Color(0xFF276749), // Color del AppBar
+                backgroundColor: Color(0xFF276749),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Find the pot code in your email',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
               Expanded(
                 child: Column(
@@ -43,28 +82,24 @@ class _AddPotScreenState extends State<AddPotScreen> {
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        buildCodeTextField(),
-                        buildCodeTextField(),
-                        buildCodeTextField(),
-                        buildCodeTextField(),
-                        buildCodeTextField(),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        print('Add Me button pressed');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF276749),
-                      ),
-                      child: Text(
-                        'Add Me',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      children: List.generate(5, (index) => buildCodeTextField(index)),
                     ),
                   ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: _validateCode,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF276749),
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                  ),
+                  child: Text(
+                    'Add Me',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
               ),
             ],
@@ -81,7 +116,7 @@ class _AddPotScreenState extends State<AddPotScreen> {
     );
   }
 
-  Widget buildCodeTextField() {
+  Widget buildCodeTextField(int index) {
     return Container(
       width: 50,
       height: 50,
@@ -91,6 +126,7 @@ class _AddPotScreenState extends State<AddPotScreen> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
+        controller: _controllers[index],
         textAlign: TextAlign.center,
         keyboardType: TextInputType.text,
         maxLength: 1,
@@ -102,7 +138,4 @@ class _AddPotScreenState extends State<AddPotScreen> {
       ),
     );
   }
-
-
-
 }
