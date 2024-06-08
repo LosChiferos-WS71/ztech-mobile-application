@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/choose_plant_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/email_sent_screen.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/recover_password_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/register_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         'register': (context) => SignUpScreen(),
         'choose-plant': (context) => ChoosePlantScreen(),
         'addPot': (context) => AddPotScreen(),
+        'recover-password': (context) => const RecoverPasswordScreen(),
+        'email-sent': (context) => const EmailSentScreen(),
       },
     );
   }

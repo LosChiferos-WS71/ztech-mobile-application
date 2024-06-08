@@ -106,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'choose-plant');
+                       
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),
@@ -134,6 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               // Aquí puedes manejar la navegación a la pantalla de recuperación de contraseña
+                                                 Navigator.pushNamed(context, 'recover-password');
+
                             },
                         ),
                       ],
