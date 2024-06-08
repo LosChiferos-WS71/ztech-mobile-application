@@ -1,13 +1,41 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/common/widgets/confirmation_dialog.dart';
 import 'package:ztech_mobile_application/loan/domain/plant.dart';
-import 'package:ztech_mobile_application/loan/presentation/views/configuration_flowerpot.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/loaded_plant_screen.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/flowerpots_screen.dart';
 
 class PlantCard extends StatelessWidget {
   final Plant plant;
 
   const PlantCard({Key? key, required this.plant}) : super(key: key);
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ConfirmationDialog(
+          message: 'Are you sure you want to add this plant?',
+          onYesPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoadingScreen()),
+            );
+            // Esperar 3 segundos y luego navegar a la siguiente pantalla
+            Timer(Duration(seconds: 3), () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => FlowerpotsScreen()),
+              );
+            });
+          },
+          onNoPressed: () {
+            Navigator.of(context).pop(); // Cierra el diálogo
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +43,7 @@ class PlantCard extends StatelessWidget {
         child: InkWell(
       splashColor: Colors.grey,
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoadingScreen()),
-        );
-        // Esperar 3 segundos y luego navegar a la siguiente pantalla
-        Timer(Duration(seconds: 3), () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => ConfigureFlowerPot()),
-          );
-        });
+        _showLogoutDialog(context);
       },
       child: SizedBox(
         width: 150,

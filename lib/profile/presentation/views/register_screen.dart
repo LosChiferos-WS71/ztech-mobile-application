@@ -133,7 +133,6 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, 'flowerpots');
-
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
@@ -149,24 +148,27 @@ class _SignUpScreen extends State<SignUpScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: 'Do not you remember your password? ',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: 'Enter Here',
-                        style: const TextStyle(color: Color(0xFF276749)),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                                                 Navigator.pushNamed(context, 'recover-password');
-                          },
-                      ),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Do not you remember your password? ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: 'Enter Here',
+                          style: const TextStyle(color: Color(0xFF276749)),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(context, 'recover-password');
+                            },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
