@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_metrics_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpots_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/choose_plant_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
@@ -9,6 +10,7 @@ import 'package:ztech_mobile_application/profile/presentation/views/splash_scree
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/home_screen.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_detail_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/profile_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/edit_profile_screen.dart';
 
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
         'recover-password': (context) => const RecoverPasswordScreen(),
         'email-sent': (context) => const EmailSentScreen(),
         'flowerpots': (context) => FlowerpotsScreen(),
+        'potdetail': (context) => FlowerpotDetailScreen(),
+        'flowerpot_metrics': (context) => FlowerpotMetricsScreen(),
       },
     );
   }

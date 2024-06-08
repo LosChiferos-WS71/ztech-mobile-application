@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Agregando Syncfusion Flutter Charts
+  syncfusion_flutter_charts: ^25.2.7
 
   # Agregando Syncfusion Flutter Charts
   syncfusion_flutter_charts: ^25.2.7

@@ -47,7 +47,6 @@ class CustomNavigationBar extends StatelessWidget {
         Navigator.pushNamed(context, 'flowerpots');
         break;
       case 1:
-        // Asumiendo que tienes una ruta para añadir, por ejemplo una pantalla de adición
         Navigator.pushNamed(context, 'addPot');
         break;
       case 2:
