@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/loaded_set_plant_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/widgets/notification_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_metrics_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpots_screen.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
         'flowerpots': (context) => FlowerpotsScreen(),
         'potdetail': (context) => FlowerpotDetailScreen(),
         'flowerpot_metrics': (context) => FlowerpotMetricsScreen(),
-        'notification': (context) => NotificationScreen()
+        'notification': (context) => NotificationScreen(),
+        'loadingsetScreen':(context)=>LoadingSetScreen()
       },
     );
   }

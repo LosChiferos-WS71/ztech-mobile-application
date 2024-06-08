@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'dart:async';
+
+import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
 
 class ConfigureFlowerPot extends StatefulWidget {
   @override
@@ -84,8 +87,15 @@ class _ConfigureFlowerPotState extends State<ConfigureFlowerPot> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'choose-plant');
+                      Navigator.pushNamed(context, 'loadingsetScreen');
+                         Timer(Duration(seconds: 3), () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => AddPotScreen()),
+              );
+            });
                     },
+                    
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),
                       padding: const EdgeInsets.symmetric(

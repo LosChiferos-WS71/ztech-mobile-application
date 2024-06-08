@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/confirmation_dialog.dart';
 import 'package:ztech_mobile_application/loan/domain/plant.dart';
+import 'package:ztech_mobile_application/loan/presentation/views/configuration_flowerpot.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/loaded_plant_screen.dart';
-import 'package:ztech_mobile_application/pot/presentation/views/flowerpots_screen.dart';
 
 class PlantCard extends StatelessWidget {
   final Plant plant;
@@ -25,7 +25,7 @@ class PlantCard extends StatelessWidget {
             Timer(Duration(seconds: 3), () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => FlowerpotsScreen()),
+                MaterialPageRoute(builder: (context) => ConfigureFlowerPot()),
               );
             });
           },
