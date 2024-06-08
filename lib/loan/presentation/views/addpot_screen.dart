@@ -10,7 +10,7 @@ class AddPotScreen extends StatefulWidget {
 }
 
 class _AddPotScreenState extends State<AddPotScreen> {
-  int _selectedIndex = 0; // Dejarlo en 0 para que muestre la primera vista
+  int _selectedIndex = 1; // Dejarlo en 0 para que muestre la primera vista
 
   // Lista de códigos válidos simulados
   final List<String> validCodes = ['A1B2C', 'D3E4F', 'G5H6I'];

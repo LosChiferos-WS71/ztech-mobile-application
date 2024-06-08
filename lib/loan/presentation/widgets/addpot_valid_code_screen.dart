@@ -13,11 +13,12 @@ class _AddPotValidCodeScreenState extends State<AddPotValidCodeScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacementNamed("addPot");
+      Navigator.of(context).pushReplacementNamed("choose-plant");
     });
   }
 
   void _onItemTapped(int index) {
+
     setState(() {
       _selectedIndex = index;
     });
