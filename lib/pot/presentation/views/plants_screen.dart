@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
@@ -19,7 +21,9 @@ class PlantsScreen extends StatefulWidget {
 class _PlantsScreenState extends State<PlantsScreen> {
   int _selectedIndex = 2;
   TextEditingController searchController = TextEditingController();
-  String searchQuery = "";
+  late StreamController<String> searchStreamController;
+  late Future<User> user;
+  late Future<List<PlantAvailable>> availablePlants;
 
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
@@ -30,39 +34,24 @@ class _PlantsScreenState extends State<PlantsScreen> {
     }
   }
 
-  late Future<User> user;
-  late Future<List<PlantAvailable>> availablePlants;
-
   @override
   void initState() {
     super.initState();
-    searchController = TextEditingController();
+    searchStreamController = StreamController<String>.broadcast();
     final userRepository = UserRepository();
     final plantAvailableRepository = PlantAvailableRepository();
-
     user = userRepository.getUser();
     availablePlants =
         PlantAvailableService(plantAvailableRepository).getAvailablePlants();
-
-    searchController.addListener(_onSearchChanged);
-  }
-
-  void _onSearchChanged() {
-    if (searchController.text.isEmpty) {
-      setState(() {
-        searchQuery = "";
-      });
-    } else {
-      setState(() {
-        searchQuery = searchController.text.toLowerCase();
-      });
-    }
+    searchController.addListener(() {
+      searchStreamController.add(searchController.text.toLowerCase());
+    });
   }
 
   @override
   void dispose() {
-    searchController.removeListener(_onSearchChanged);
     searchController.dispose();
+    searchStreamController.close();
     super.dispose();
   }
 
@@ -74,81 +63,82 @@ class _PlantsScreenState extends State<PlantsScreen> {
         painter: DiagonalBackgroundPainter(),
         child: ListView(
           children: [
+            // Agregar primero la sección de las plantas del usuario
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: Text(
-                "YOUR PLANTS",
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.2,
-                  color: Colors.white,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "YOUR PLANTS",
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.2,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  FutureBuilder<List<dynamic>>(
+                    future: Future.wait([user, availablePlants]),
+                    builder: (context, snapshotFuture) {
+                      if (!snapshotFuture.hasData) return SizedBox();
+                      List<PlantInfo> userPlants =
+                          snapshotFuture.data![0].plants;
+                      return buildUserPlantsGridView(userPlants);
+                    },
+                  ),
+                ],
               ),
             ),
-            FutureBuilder<List<dynamic>>(
-              future: Future.wait([user, availablePlants]),
+            // Sección "MORE PLANTS"
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "MORE PLANTS",
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.2,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      labelText: "Enter the plant you want to search for",
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Vista de plantas filtradas por la búsqueda
+            StreamBuilder<String>(
+              stream: searchStreamController.stream,
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                      child: Text(
-                          'Error al cargar los datos: ${snapshot.error.toString()}'));
-                }
-                if (snapshot.hasData) {
-                  User currentUser = snapshot.data![0];
-                  List<PlantAvailable> plantsAvailable = snapshot.data![1];
-                  return Column(
-                    children: <Widget>[
-                      buildUserPlantsGridView(currentUser.plants),
-                      SizedBox(height: 20), // Espacio entre secciones
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18.0), // Ajusta el padding según necesites
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "MORE PLANTS",
-                            style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.2,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextField(
-                          controller: searchController,
-                          decoration: InputDecoration(
-                            labelText: "Enter the plant you want to search for",
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            filled:
-                                true, // Esta línea activa el relleno del color
-                            fillColor: Colors
-                                .white, // Esta línea establece el color del relleno
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              searchQuery = value.toLowerCase();
-                            });
-                          },
-                        ),
-                      ),
-
-                      buildAvailablePlantsGridView(plantsAvailable)
-                    ],
-                  );
-                } else {
-                  return Center(child: Text('No se encontraron datos'));
-                }
+                // Aquí pasamos snapshot.data ?? "" que es el valor actual del searchQuery
+                return FutureBuilder<List<dynamic>>(
+                  future: Future.wait([user, availablePlants]),
+                  builder: (context, snapshotFuture) {
+                    if (!snapshotFuture.hasData) return SizedBox();
+                    List<PlantAvailable> plants = snapshotFuture.data![1];
+                    return buildAvailablePlantsGridView(plants,
+                        snapshot.data ?? ""); // Pasamos el searchQuery aquí
+                  },
+                );
               },
             ),
           ],
@@ -183,7 +173,8 @@ class _PlantsScreenState extends State<PlantsScreen> {
     );
   }
 
-  Widget buildAvailablePlantsGridView(List<PlantAvailable> plants) {
+  Widget buildAvailablePlantsGridView(
+      List<PlantAvailable> plants, String searchQuery) {
     List<PlantAvailable> filteredPlants = plants.where((plant) {
       return plant.plantName.toLowerCase().contains(searchQuery) ||
           plant.scientificName.toLowerCase().contains(searchQuery);
