@@ -4,7 +4,6 @@ import 'package:ztech_mobile_application/common/widgets/diagonal_background_pain
 import 'package:ztech_mobile_application/loan/presentation/widgets/addpot_invalid_code_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/widgets/addpot_valid_code_screen.dart';
 
-
 class AddPotScreen extends StatefulWidget {
   @override
   _AddPotScreenState createState() => _AddPotScreenState();
@@ -17,7 +16,8 @@ class _AddPotScreenState extends State<AddPotScreen> {
   final List<String> validCodes = ['A1B2C', 'D3E4F', 'G5H6I'];
 
   // Controladores para los TextFields
-  final List<TextEditingController> _controllers = List.generate(5, (_) => TextEditingController());
+  final List<TextEditingController> _controllers =
+      List.generate(5, (_) => TextEditingController());
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,7 +26,8 @@ class _AddPotScreenState extends State<AddPotScreen> {
   }
 
   void _validateCode() {
-    String enteredCode = _controllers.map((controller) => controller.text).join();
+    String enteredCode =
+        _controllers.map((controller) => controller.text).join();
     if (validCodes.contains(enteredCode)) {
       Navigator.pushReplacement(
         context,
@@ -46,68 +47,64 @@ class _AddPotScreenState extends State<AddPotScreen> {
       body: CustomPaint(
         painter: DiagonalBackgroundPainter(),
         child: Center(
-          child: _selectedIndex == 1 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
-              ? Column(
-            children: <Widget>[
-              AppBar(
-                title: Text(
-                  'Add Flowerpot',
+            child: Column(
+          children: <Widget>[
+            AppBar(
+              title: Text(
+                'Add Flowerpot',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Color(0xFF276749),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Find the pot code in your email',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                backgroundColor: Color(0xFF276749),
               ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Find the pot code in your email',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        List.generate(5, (index) => buildCodeTextField(index)),
                   ),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: _validateCode,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF276749),
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                ),
+                child: Text(
+                  'Add Me',
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(5, (index) => buildCodeTextField(index)),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: _validateCode,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF276749),
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                  ),
-                  child: Text(
-                    'Add Me',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-              ),
-            ],
-          )
-              : Center(
-            child: Text('Other Page'),
-          ),
-        ),
+            ),
+          ],
+        )),
       ),
       bottomNavigationBar: CustomNavigationBar(
         selectedIndex: _selectedIndex,

@@ -41,9 +41,7 @@ class _ChoosePlantScreenState extends State<ChoosePlantScreen> {
         painter: DiagonalBackgroundPainter(),
         child: SingleChildScrollView(
           child: Center(
-            child: _selectedIndex ==
-                    1 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
-                ? Column(
+            child:Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -137,9 +135,7 @@ class _ChoosePlantScreenState extends State<ChoosePlantScreen> {
                             ),
                     ],
                   )
-                : Center(
-                    child: Text('Other Page'),
-                  ),
+                
           ),
         ),
       ),
