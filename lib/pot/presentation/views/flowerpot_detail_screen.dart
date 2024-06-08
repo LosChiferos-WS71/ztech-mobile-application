@@ -31,6 +31,7 @@ class _FlowerpotDetailScreenState extends State<FlowerpotDetailScreen> {
           children: <Widget>[
             buildCustomAppBar(context),
             const PlantInfoComponent(),
+
             buildButtons(context),
             const RecommendationComponent(),
           ],
@@ -50,6 +51,7 @@ class _FlowerpotDetailScreenState extends State<FlowerpotDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          
           IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             iconSize: 36,
@@ -72,10 +74,11 @@ class _FlowerpotDetailScreenState extends State<FlowerpotDetailScreen> {
 
 Widget buildButtons(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        
         Expanded(
           child: ElevatedButton(
             onPressed: () {
