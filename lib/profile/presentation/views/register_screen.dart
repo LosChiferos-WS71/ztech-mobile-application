@@ -132,7 +132,8 @@ class _SignUpScreen extends State<SignUpScreen> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-                    // Aquí puedes manejar la lógica de inicio de sesión
+                    Navigator.pushNamed(context, 'flowerpots');
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
@@ -160,7 +161,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                         style: const TextStyle(color: Color(0xFF276749)),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            // Aquí puedes manejar la navegación a la pantalla de recuperación de contraseña
+                                                 Navigator.pushNamed(context, 'recover-password');
                           },
                       ),
                     ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_detail_screen.dart';
 
 class PlantInfoComponent extends StatelessWidget {
   const PlantInfoComponent({super.key});
@@ -17,27 +16,16 @@ class PlantInfoComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-  flex: 2,
-  child: InkWell(
-    onTap: () {
-      
- Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FlowerpotDetailScreen(),
-                      ),
-                    );
-    },
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network(
-        'https://cdn0.ecologiaverde.com/es/posts/0/7/8/como_crecen_las_plantas_2870_orig.jpg',
-        fit: BoxFit.cover,
-      ),
-    ),
-  ),
-),
-
+            flex: 2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                'https://cdn0.ecologiaverde.com/es/posts/0/7/8/como_crecen_las_plantas_2870_orig.jpg',
+                fit: BoxFit
+                    .cover, // Use BoxFit.fill to make sure the image covers the full area
+              ),
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Padding(
