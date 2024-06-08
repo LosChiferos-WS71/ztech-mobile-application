@@ -8,18 +8,18 @@
             "plantName": "Flowerpot 1",
             "plantImageUrl": "https://yorkshireflowerpots.co.uk/wp-content/uploads/2019/09/YFP_Medium_Heavy_Cylinder-928x826.jpg",
             "careIcons": {
-                "temperature": "assets/icons/temperature.png",
-                "water": "assets/icons/water.png",
-                "sunlight": "assets/icons/sunlight.png"
+                "temperature": "alto",
+                "water": "bajo",
+                "sunlight": "medio"
             }
         },
         {
             "plantName": "Flowerpot 2",
             "plantImageUrl": "https://www.hawleygardencentre.co.uk/shop//User/Products/LrgImg/Outdoor%20Living/Planters%20and%20Pots/Terracotta%20Pots/80355-Terra-Large-Flower-Pot.jpg",
             "careIcons": {
-                "temperature": "assets/icons/temperature.png",
-                "water": "assets/icons/water.png",
-                "sunlight": "assets/icons/sunlight.png"
+                "temperature": "bajo",
+                "water": "alto",
+                "sunlight": "medio"
             }
         }
     ]
