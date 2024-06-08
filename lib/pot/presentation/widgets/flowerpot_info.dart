@@ -84,7 +84,7 @@ class PlantInfoComponent extends StatelessWidget {
 
   Widget infoText(String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Text(text,
           style: const TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red)),
@@ -93,7 +93,7 @@ class PlantInfoComponent extends StatelessWidget {
 
   Widget infoRow(IconData icon, String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           Icon(icon, color: Colors.green, size: 24), // Reducir tamaño de icono
