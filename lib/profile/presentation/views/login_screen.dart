@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'choose-plant');
+                      Navigator.pushNamed(context, 'flowerpots');
                        
                     },
                     style: ElevatedButton.styleFrom(
