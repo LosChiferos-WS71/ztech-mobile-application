@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/email_sent_screen.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/splash_recover_password_screen.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
@@ -10,6 +11,9 @@ class RecoverPasswordScreen extends StatefulWidget {
 }
 
 class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
+  TextEditingController _emailController = TextEditingController();
+  bool _showEmailError = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +64,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     labelText: 'Email',
@@ -72,17 +77,13 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       borderSide: BorderSide(color: Colors.grey),
                     ),
+                    errorText: _showEmailError ? 'Enter your email' : null,
                   ),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmailSentScreen(),
-                      ),
-                    );
+                    _validateAndSubmit();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
@@ -102,5 +103,26 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
         ),
       ),
     );
+  }
+
+  void _validateAndSubmit() {
+    String email = _emailController.text.trim();
+    if (email.isEmpty) {
+      setState(() {
+        _showEmailError = true;
+      });
+      Future.delayed(Duration(seconds: 2), () {
+        setState(() {
+          _showEmailError = false;
+        });
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SplashRecoverPasswordScreen(),
+        ),
+      );
+    }
   }
 }
