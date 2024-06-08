@@ -22,8 +22,7 @@ class _AddPotScreenState extends State<AddPotScreen> {
       body: CustomPaint(
         painter: DiagonalBackgroundPainter(),
         child: Center(
-          child: _selectedIndex == 1 // Para cambiar a la vista según las opciones del toolbar(0, 1, 2, 3)
-              ? Column(
+          child: Column(
             children: <Widget>[
               AppBar(
                 title: Text(
@@ -54,7 +53,8 @@ class _AddPotScreenState extends State<AddPotScreen> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        print('Add Me button pressed');
+                                Navigator.pushNamed(context, 'choose-plant');
+
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF276749),
@@ -69,9 +69,7 @@ class _AddPotScreenState extends State<AddPotScreen> {
               ),
             ],
           )
-              : Center(
-            child: Text('Other Page'),
-          ),
+             
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
