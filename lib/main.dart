@@ -11,7 +11,6 @@ import 'package:ztech_mobile_application/profile/presentation/views/register_scr
 import 'package:ztech_mobile_application/profile/presentation/views/splash_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
-import 'package:ztech_mobile_application/profile/presentation/views/home_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_detail_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/profile_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/edit_profile_screen.dart';

@@ -5,9 +5,12 @@ class RecommendationComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 0),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
@@ -15,41 +18,41 @@ class RecommendationComponent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("I recommend:",
+          Text("I recommend:",
               style: TextStyle(
-                  fontSize: 40,
+                  fontSize: screenWidth * 0.05, // Adjust font size
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           recommendationItem(
               Icons.notifications_active,
               "Control the temperature, humidity and amount of sunlight in your plants.",
-              Colors.red),
+              Colors.red, screenWidth),
           recommendationItem(
               Icons.warning,
-              "At 3pm you have to remove your plant2 from the sun.",
-              Colors.orange),
+              "At 3pm you have to remove your plant from the sun.",
+              Colors.orange, screenWidth),
           recommendationItem(
               Icons.info,
               "Remember to buy organic fertilizer for your plant and save the eggshells to provide calcium to them.",
-              Colors.green),
+              Colors.green, screenWidth),
         ],
       ),
     );
   }
 
-  Widget recommendationItem(IconData icon, String text, Color iconColor) {
+  Widget recommendationItem(IconData icon, String text, Color iconColor, double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, color: iconColor, size: 40),
-          const SizedBox(width: 10),
+          Icon(icon, color: iconColor, size: screenWidth * 0.08), // Adjust icon size
+          SizedBox(width: 10),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                  fontSize: 15,
+              style: TextStyle(
+                  fontSize: screenWidth * 0.04, // Adjust text size
                   color: Colors.black,
                   fontWeight: FontWeight.w500),
             ),
