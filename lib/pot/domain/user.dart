@@ -1,10 +1,12 @@
 class PlantInfo {
   final String plantName;
+  final String scientificName; // Nuevo campo para el nombre científico
   final String plantImageUrl;
   final Map<String, String> careIcons;
 
   PlantInfo({
     required this.plantName,
+    required this.scientificName, // Incluye el nuevo campo en el constructor
     required this.plantImageUrl,
     required this.careIcons,
   });
@@ -12,6 +14,8 @@ class PlantInfo {
   factory PlantInfo.fromJson(Map<String, dynamic> json) {
     return PlantInfo(
       plantName: json['plantName'],
+      scientificName:
+          json['scientificName'], // Parsea el nombre científico desde JSON
       plantImageUrl: json['plantImageUrl'],
       careIcons: Map<String, String>.from(json['careIcons']),
     );

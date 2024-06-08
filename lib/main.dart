@@ -4,6 +4,7 @@ import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_metric
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpots_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/choose_plant_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/addpot_screen.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/plants_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/email_sent_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/recover_password_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/register_screen.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         'welcome': (context) => const WelcomeScreen(),
         'login': (context) => const LoginScreen(),
-        'home': (context) => const HomeScreen(),
+        'home': (context) => PlantsScreen(),
         'profile': (context) => const ProfileScreen(),
         'edit_profile': (context) => const EditProfileScreen(),
         'register': (context) => SignUpScreen(),

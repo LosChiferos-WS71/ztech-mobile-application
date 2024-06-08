@@ -6,6 +6,7 @@
     "plants": [
         {
             "plantName": "Flowerpot 1",
+            "scientificName": "Scientific Name 1",
             "plantImageUrl": "https://yorkshireflowerpots.co.uk/wp-content/uploads/2019/09/YFP_Medium_Heavy_Cylinder-928x826.jpg",
             "careIcons": {
                 "temperature": "alto",
@@ -15,6 +16,7 @@
         },
         {
             "plantName": "Flowerpot 2",
+            "scientificName": "Scientific Name 2",
             "plantImageUrl": "https://www.hawleygardencentre.co.uk/shop//User/Products/LrgImg/Outdoor%20Living/Planters%20and%20Pots/Terracotta%20Pots/80355-Terra-Large-Flower-Pot.jpg",
             "careIcons": {
                 "temperature": "bajo",

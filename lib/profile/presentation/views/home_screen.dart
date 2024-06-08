@@ -1,3 +1,5 @@
+/*
+
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
@@ -63,3 +65,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+*/ 
