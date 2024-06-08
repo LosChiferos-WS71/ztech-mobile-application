@@ -4,6 +4,7 @@ import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/pot/application/plant_available_service.dart';
 import 'package:ztech_mobile_application/pot/domain/plant_available.dart';
 import 'package:ztech_mobile_application/pot/infrastructure/plant_available_repository.dart';
+import 'package:ztech_mobile_application/pot/presentation/views/plant_detail_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/card_plant_available.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/card_plant_simple.dart';
 import 'package:ztech_mobile_application/pot/presentation/widgets/top_bar.dart';
@@ -201,8 +202,12 @@ class _PlantsScreenState extends State<PlantsScreen> {
       itemBuilder: (context, index) {
         return CardPlantAvailable(
           plantAvailable: filteredPlants[index],
-          onTap: () {
-            // Implementación del onTap si es necesario
+          onTap: (plant) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PlantDetailScreen(plant: plant)),
+            );
           },
         );
       },

@@ -3,15 +3,16 @@ import 'package:ztech_mobile_application/pot/domain/plant_available.dart';
 
 class CardPlantAvailable extends StatelessWidget {
   final PlantAvailable plantAvailable;
-  final VoidCallback? onTap;
+  final Function(PlantAvailable) onTap;
 
-  const CardPlantAvailable({Key? key, required this.plantAvailable, this.onTap})
+  const CardPlantAvailable(
+      {Key? key, required this.plantAvailable, required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap(plantAvailable),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(

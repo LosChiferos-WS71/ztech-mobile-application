@@ -7,7 +7,9 @@
             "temperature": "medio",
             "water": "alto",
             "sunlight": "bajo"
-        }
+        },
+        "description": "La Monstera Deliciosa es conocida por sus grandes y llamativas hojas que desarrollan recortes naturales a medida que maduran.",
+        "recommendation": "Ideal para interiores con luz indirecta y riegos moderados, evitando el encharcamiento."
     },
     {
         "plantName": "Fiddle Leaf Fig",
@@ -17,7 +19,9 @@
             "temperature": "alto",
             "water": "medio",
             "sunlight": "alto"
-        }
+        },
+        "description": "El Ficus lyrata, o Fiddle Leaf Fig, es una planta elegante que posee grandes hojas verdes en forma de violín.",
+        "recommendation": "Prefiere ambientes cálidos y húmedos con abundante luz natural."
     },
     {
         "plantName": "Snake Plant",
@@ -27,6 +31,8 @@
             "temperature": "bajo",
             "water": "bajo",
             "sunlight": "medio"
-        }
+        },
+        "description": "Conocida como la planta de serpiente, es altamente resistente y purificadora del aire, ideal para principiantes.",
+        "recommendation": "Sobrevive en condiciones de bajo riego y luz variable, y prefiere no ser sobre regada."
     }
 ]
