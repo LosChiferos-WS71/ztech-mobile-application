@@ -12,7 +12,14 @@ class FlowerpotsScreen extends StatefulWidget {
 }
 
 class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
-  int _selectedIndex = 0;
+    int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   Future<User>? user;
 
   @override
@@ -99,15 +106,9 @@ class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(
+       bottomNavigationBar: CustomNavigationBar(
         selectedIndex: _selectedIndex,
-        onDestinationSelected: (int index) {
-          if (index != _selectedIndex) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          }
-        },
+        onDestinationSelected: _onItemTapped,
       ),
     );
   }
