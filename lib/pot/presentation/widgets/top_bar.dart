@@ -10,8 +10,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
 
   TopBar({Key? key})
-      : preferredSize =
-            Size.fromHeight(80.0), // Ajustado para el contenido adicional
+      : preferredSize = Size.fromHeight(
+            80.0), // Incrementa la altura para acomodar el padding
         super(key: key);
 
   @override
@@ -23,34 +23,49 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             snapshot.hasData) {
           return AppBar(
             automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(snapshot.data!.profileImageUrl),
-                  radius: 25.0, // Tamaño del avatar
-                ),
-                SizedBox(width: 10), // Espacio entre el avatar y el texto
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(snapshot.data!.greeting,
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
-                    Text(
-                        '${snapshot.data!.firstName} ${snapshot.data!.lastName}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30))
-                  ],
-                ),
-              ],
+            flexibleSpace: Padding(
+              padding: EdgeInsets.only(
+                  top: 20, left: 20), // Añade padding en la parte superior
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.end, // Alinea el contenido hacia abajo
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(snapshot.data!.profileImageUrl),
+                        radius: 25.0,
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(snapshot.data!.greeting,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20)),
+                          Text(
+                              '${snapshot.data!.firstName} ${snapshot.data!.lastName}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30))
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             actions: [
-              IconButton(
-                icon: Icon(Icons.notifications),
-                color: Colors.white,
-                onPressed: () {},
+              Padding(
+                padding: EdgeInsets.only(right: 20, top: 25),
+                child: IconButton(
+                  icon: Icon(Icons.notifications),
+                  color: Colors.white,
+                  onPressed: () {},
+                ),
               ),
             ],
             backgroundColor: Color(0xFF276749),

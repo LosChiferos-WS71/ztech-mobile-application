@@ -35,7 +35,7 @@ class _FlowerpotsScreenState extends State<FlowerpotsScreen> {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 return GridView.builder(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(15),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Dos columnas
                     crossAxisSpacing: 10, // Espacio horizontal
