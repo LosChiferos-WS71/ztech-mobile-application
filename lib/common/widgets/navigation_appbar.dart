@@ -44,17 +44,16 @@ class CustomNavigationBar extends StatelessWidget {
   void _navigateToScreen(int index, BuildContext context) {
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, 'home');
+        Navigator.pushNamed(context, 'flowerpots');
         break;
       case 1:
-        // Asumiendo que tienes una ruta para añadir, por ejemplo una pantalla de adición
-        Navigator.pushNamed(context, 'home');
+        Navigator.pushNamed(context, 'addPot');
         break;
       case 2:
         Navigator.pushNamed(context, 'home');
         break;
       case 3:
-        Navigator.pushNamed(context, 'potdetail');
+        Navigator.pushNamed(context, 'profile');
         break;
       default:
         Navigator.pushNamed(context, '/');
