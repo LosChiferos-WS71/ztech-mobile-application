@@ -1,0 +1,32 @@
+[
+    {
+        "plantName": "Monstera Deliciosa",
+        "scientificName": "Monstera deliciosa",
+        "plantImageUrl": "https://yorkshireflowerpots.co.uk/wp-content/uploads/2019/09/YFP_Medium_Heavy_Cylinder-928x826.jpg",
+        "careIcons": {
+            "temperature": "medio",
+            "water": "alto",
+            "sunlight": "bajo"
+        }
+    },
+    {
+        "plantName": "Fiddle Leaf Fig",
+        "scientificName": "Ficus lyrata",
+        "plantImageUrl": "https://yorkshireflowerpots.co.uk/wp-content/uploads/2019/09/YFP_Medium_Heavy_Cylinder-928x826.jpg",
+        "careIcons": {
+            "temperature": "alto",
+            "water": "medio",
+            "sunlight": "alto"
+        }
+    },
+    {
+        "plantName": "Snake Plant",
+        "scientificName": "Sansevieria trifasciata",
+        "plantImageUrl": "https://yorkshireflowerpots.co.uk/wp-content/uploads/2019/09/YFP_Medium_Heavy_Cylinder-928x826.jpg",
+        "careIcons": {
+            "temperature": "bajo",
+            "water": "bajo",
+            "sunlight": "medio"
+        }
+    }
+]
