@@ -65,6 +65,7 @@ flutter:
     
   assets:
     - assets/Logo-ztech-inicio.png
+    - assets/empty-notification-image.png
     - assets/user.json
     - assets/NotFound.png
     - assets/plant1.png
