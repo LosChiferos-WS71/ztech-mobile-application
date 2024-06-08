@@ -5,17 +5,22 @@ class CustomNavigationBar extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
 
   const CustomNavigationBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onDestinationSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
       selectedIndex: selectedIndex,
-      onDestinationSelected: onDestinationSelected,
-      destinations: [
+      onDestinationSelected: (index) {
+        // Notificar al widget padre
+        onDestinationSelected(index);
+        // Navegar a la nueva pantalla
+        _navigateToScreen(index, context);
+      },
+      destinations: const [
         NavigationDestination(
           icon: Icon(Icons.local_florist),
           label: 'Flowerpots',
@@ -34,5 +39,25 @@ class CustomNavigationBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _navigateToScreen(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, 'home');
+        break;
+      case 1:
+        // Asumiendo que tienes una ruta para añadir, por ejemplo una pantalla de adición
+        Navigator.pushNamed(context, 'home');
+        break;
+      case 2:
+        Navigator.pushNamed(context, 'home');
+        break;
+      case 3:
+        Navigator.pushNamed(context, 'profile');
+        break;
+      default:
+        Navigator.pushNamed(context, '/');
+    }
   }
 }
