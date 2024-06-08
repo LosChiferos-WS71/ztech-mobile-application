@@ -17,6 +17,8 @@ class PlantsScreen extends StatefulWidget {
 
 class _PlantsScreenState extends State<PlantsScreen> {
   int _selectedIndex = 2;
+  TextEditingController searchController = TextEditingController();
+  String searchQuery = "";
 
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
@@ -33,12 +35,34 @@ class _PlantsScreenState extends State<PlantsScreen> {
   @override
   void initState() {
     super.initState();
+    searchController = TextEditingController();
     final userRepository = UserRepository();
     final plantAvailableRepository = PlantAvailableRepository();
 
     user = userRepository.getUser();
     availablePlants =
         PlantAvailableService(plantAvailableRepository).getAvailablePlants();
+
+    searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    if (searchController.text.isEmpty) {
+      setState(() {
+        searchQuery = "";
+      });
+    } else {
+      setState(() {
+        searchQuery = searchController.text.toLowerCase();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(_onSearchChanged);
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -76,7 +100,7 @@ class _PlantsScreenState extends State<PlantsScreen> {
                   User currentUser = snapshot.data![0];
                   List<PlantAvailable> plantsAvailable = snapshot.data![1];
                   return Column(
-                    children: [
+                    children: <Widget>[
                       buildUserPlantsGridView(currentUser.plants),
                       SizedBox(height: 20), // Espacio entre secciones
                       Padding(
@@ -95,6 +119,29 @@ class _PlantsScreenState extends State<PlantsScreen> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            labelText: "Enter the plant you want to search for",
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            filled:
+                                true, // Esta línea activa el relleno del color
+                            fillColor: Colors
+                                .white, // Esta línea establece el color del relleno
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              searchQuery = value.toLowerCase();
+                            });
+                          },
+                        ),
+                      ),
+
                       buildAvailablePlantsGridView(plantsAvailable)
                     ],
                   );
@@ -136,6 +183,11 @@ class _PlantsScreenState extends State<PlantsScreen> {
   }
 
   Widget buildAvailablePlantsGridView(List<PlantAvailable> plants) {
+    List<PlantAvailable> filteredPlants = plants.where((plant) {
+      return plant.plantName.toLowerCase().contains(searchQuery) ||
+          plant.scientificName.toLowerCase().contains(searchQuery);
+    }).toList();
+
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(), // Desactiva el scroll interno
@@ -145,10 +197,10 @@ class _PlantsScreenState extends State<PlantsScreen> {
         mainAxisSpacing: 10,
         childAspectRatio: 0.8,
       ),
-      itemCount: plants.length,
+      itemCount: filteredPlants.length,
       itemBuilder: (context, index) {
         return CardPlantAvailable(
-          plantAvailable: plants[index],
+          plantAvailable: filteredPlants[index],
           onTap: () {
             // Implementación del onTap si es necesario
           },
