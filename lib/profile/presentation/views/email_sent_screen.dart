@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ztech_mobile_application/profile/presentation/views/login_screen.dart';
 
 class EmailSentScreen extends StatefulWidget {
   const EmailSentScreen({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class _EmailSentScreenState extends State<EmailSentScreen> {
   void initState() {
     super.initState();
     // Espera 3 segundos y luego regresa a la pantalla anterior
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 2), () {
       //Navigator.pop(context);
        Navigator.pushNamed(context, 'login');
 
