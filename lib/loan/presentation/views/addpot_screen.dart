@@ -151,7 +151,7 @@ class _AddPotScreenState extends State<AddPotScreen> {
     onChanged: (value) {
     if (value.isEmpty && index > 0) {
     _focusNodes[index].unfocus();
-    _focusNodes[index - 1].requestFocus();
+    _focusNodes[index].requestFocus();
     } else if (value.isNotEmpty && index < _controllers.length - 1) {
     _focusNodes[index].unfocus();
     _focusNodes[index + 1].requestFocus();
