@@ -28,6 +28,83 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  Future<void> _signIn() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (!_isValidEmail(email)) {
+      _showErrorDialog("Invalid email format");
+      return;
+    }
+
+    try {
+      User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+      if (user == null) {
+        _showErrorDialog("Incorrect credentials");
+        return;
+      }
+
+      final plantOwnersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/plant/owners'));
+      final plantOwnersData = json.decode(plantOwnersResponse.body) as List;
+
+      final suppliersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/suppliers'));
+      final suppliersData = json.decode(suppliersResponse.body) as List;
+
+      bool emailExists = false;
+      String type = 'default';
+
+      for (var plantOwner in plantOwnersData) {
+        if (plantOwner['email'] == email) {
+          emailExists = true;
+          type = 'plantOwner';
+          break;
+        }
+      }
+
+      for (var supplier in suppliersData) {
+        if (supplier['email'] == email) {
+          emailExists = true;
+          type = 'supplier';
+          break;
+        }
+      }
+
+      if (emailExists) {
+        Navigator.of(context).pushReplacementNamed('flowerpots');
+      } else {
+        _showErrorDialog("Account does not exist");
+      }
+    } catch (e) {
+      _showErrorDialog("Authentication error: ${e.toString()}");
+    }
+  }
+
+  bool _isValidEmail(String email) {
+    final regex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return regex.hasMatch(email);
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,67 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () async {
-                      final email = emailController.text;
-                      final password = passwordController.text;
-                      String type = 'default';
-
-                      final plantOwnersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/plant/owners'));
-                      final plantOwnersData = json.decode(plantOwnersResponse.body) as List;
-
-                      final suppliersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/suppliers'));
-                      final suppliersData = json.decode(suppliersResponse.body) as List;
-
-                      try {
-                        User? user = await _auth.signInWithEmailAndPassword(email, password);
-                        
-                        bool emailExists = false;
-
-                        for (var plantOwner in plantOwnersData) {
-                          if (plantOwner['email'] == email) {
-                            emailExists = true;
-                            type = 'plantOwner';
-                            break;
-                          }
-                        }
-
-                        for (var supplier in suppliersData) {
-                          if (supplier['email'] == email) {
-                            emailExists = true;
-                            type = 'supplier';
-                            break;
-                          }
-                        }
-
-                        if (emailExists) {
-                          if (type == 'plantOwner') {
-                            Navigator.of(context).pushReplacementNamed('flowerpots');
-                          } else if (type == 'supplier') {
-                            Navigator.of(context).pushReplacementNamed('flowerpots');
-                          }
-                        }
-                      } catch (e) {
-                        final currentContext = context;
-
-                        showDialog(
-                          context: currentContext,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("Auth Error"),
-                              content: Text("Account does not exist"),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(currentContext).pop();
-                                  },
-                                  child: Text("Close"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
+                    onPressed: _signIn,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),
                       padding: const EdgeInsets.symmetric(
@@ -218,7 +235,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: const TextStyle(color: Color(0xFF276749)),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // Aquí puedes manejar la navegación a la pantalla de recuperación de contraseña
                               Navigator.pushNamed(context, 'recover-password');
                             },
                         ),
@@ -227,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0,bottom: 30.0),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 30.0),
                     child: RichText(
                       text: TextSpan(
                         children: [
