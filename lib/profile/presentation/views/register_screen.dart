@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:ztech_mobile_application/iam/services/firebase_auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -12,6 +15,70 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreen extends State<SignUpScreen> {
   bool _rememberMe = false;
   bool _showPassword = false;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  Future<void> _signUp() async {
+    final String name = _nameController.text;
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+      // Mostrar un mensaje de error si alguno de los campos está vacío.
+      return;
+    }
+
+    final url = Uri.parse('https://ztech-web-service-production.up.railway.app/api/v1/plant/owners');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'name': name,
+        'email': email,
+        'address': "",
+        'phone': 0,
+        'photo': "",
+        'dni': 0,
+        'birthday': "",
+        'gender': ""
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      try {
+        await _auth.signUpWithEmailAndPassword(email, password);
+        // Navegar a la página de flowerpots.
+        Navigator.of(context).pushReplacementNamed('login');
+      } catch (e) {
+        // Manejar error de autenticación.
+        print('Error de autenticación: $e');
+      }
+    } else if (response.statusCode == 400) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Account with same email already exists'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Mostrar un mensaje de error si la solicitud falló.
+      print('Error: ${response.reasonPhrase}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +120,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  controller: _nameController,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     labelText: 'Name LastName',
@@ -69,6 +137,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     labelText: 'Email',
@@ -85,6 +154,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  controller: _passwordController,
                   obscureText: !_showPassword,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock),
@@ -131,9 +201,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'flowerpots');
-                  },
+                  onPressed: _signUp,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF276749),
                     padding: const EdgeInsets.symmetric(
@@ -149,7 +217,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                    padding: const EdgeInsets.only(top: 10.0,bottom: 30.0),
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 30.0),
                   child: RichText(
                     text: TextSpan(
                       children: [
