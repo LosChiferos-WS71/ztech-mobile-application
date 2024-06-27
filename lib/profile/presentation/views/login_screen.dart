@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
+import 'package:ztech_mobile_application/iam/services/firebase_auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,8 +15,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool _rememberMe = false;
   bool _showPassword = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    controller: emailController,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.email),
                       labelText: 'Email',
@@ -66,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    controller: passwordController,
                     obscureText: !_showPassword,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock),
@@ -114,8 +131,66 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'flowerpots');
+                    onPressed: () async {
+                      final email = emailController.text;
+                      final password = passwordController.text;
+                      String type = 'default';
+
+                      final plantOwnersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/plant/owners'));
+                      final plantOwnersData = json.decode(plantOwnersResponse.body) as List;
+
+                      final suppliersResponse = await http.get(Uri.parse('http://ztech-web-service-production.up.railway.app/api/v1/suppliers'));
+                      final suppliersData = json.decode(suppliersResponse.body) as List;
+
+                      try {
+                        User? user = await _auth.signInWithEmailAndPassword(email, password);
+                        
+                        bool emailExists = false;
+
+                        for (var plantOwner in plantOwnersData) {
+                          if (plantOwner['email'] == email) {
+                            emailExists = true;
+                            type = 'plantOwner';
+                            break;
+                          }
+                        }
+
+                        for (var supplier in suppliersData) {
+                          if (supplier['email'] == email) {
+                            emailExists = true;
+                            type = 'supplier';
+                            break;
+                          }
+                        }
+
+                        if (emailExists) {
+                          if (type == 'plantOwner') {
+                            Navigator.of(context).pushReplacementNamed('flowerpots');
+                          } else if (type == 'supplier') {
+                            Navigator.of(context).pushReplacementNamed('flowerpots');
+                          }
+                        }
+                      } catch (e) {
+                        final currentContext = context;
+
+                        showDialog(
+                          context: currentContext,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Auth Error"),
+                              content: Text("Account does not exist"),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(currentContext).pop();
+                                  },
+                                  child: Text("Close"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF276749),

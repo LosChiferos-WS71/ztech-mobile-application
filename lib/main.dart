@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/firebase_options.dart';
 import 'package:ztech_mobile_application/loan/presentation/views/loaded_set_plant_screen.dart';
 import 'package:ztech_mobile_application/loan/presentation/widgets/notification_screen.dart';
 import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_metrics_screen.dart';
@@ -16,7 +18,10 @@ import 'package:ztech_mobile_application/pot/presentation/views/flowerpot_detail
 import 'package:ztech_mobile_application/profile/presentation/views/profile_screen.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/edit_profile_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
