@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/profile/presentation/views/splash_recover_password_screen.dart';
@@ -12,6 +13,23 @@ class RecoverPasswordScreen extends StatefulWidget {
 class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   TextEditingController _emailController = TextEditingController();
   bool _showEmailError = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +135,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
         });
       });
     } else {
+      passwordReset();
+      
       Navigator.push(
         context,
         MaterialPageRoute(
