@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ztech_mobile_application/common/utils/local_persistance.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
 import 'package:ztech_mobile_application/iam/services/firebase_auth_service.dart';
 
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuthService _auth = FirebaseAuthService();
+  final LocalPersistance _localPersistance = LocalPersistance();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _rememberMe = false;
@@ -58,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (plantOwner['email'] == email) {
           emailExists = true;
           type = 'plantOwner';
+          _localPersistance.setUser(plantOwner);
           break;
         }
       }
@@ -66,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (supplier['email'] == email) {
           emailExists = true;
           type = 'supplier';
+          _localPersistance.setUser(supplier);
           break;
         }
       }

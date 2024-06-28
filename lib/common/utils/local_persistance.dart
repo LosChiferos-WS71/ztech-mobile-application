@@ -9,14 +9,14 @@ class LocalPersistance {
 
   Future<void> setUser(Map<String, dynamic> user) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(_currentUserKey, user.toString());  // Puedes usar jsonEncode para convertir a JSON string
+    prefs.setString(_currentUserKey, jsonEncode(user));  // Puedes usar jsonEncode para convertir a JSON string
   }
 
   Future<Map<String, dynamic>?> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     final userJson = prefs.getString(_currentUserKey);
     if (userJson != null) {
-      return Map<String, dynamic>.from(jsonDecode(userJson));
+      return jsonDecode(userJson);
     }
     return null;
   }
