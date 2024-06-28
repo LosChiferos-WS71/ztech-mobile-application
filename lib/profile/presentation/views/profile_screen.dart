@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/common/utils/local_persistance.dart';
 import 'package:ztech_mobile_application/common/widgets/navigation_appbar.dart';
 import 'package:ztech_mobile_application/common/widgets/diagonal_background_painter.dart';
-import 'package:ztech_mobile_application/common/widgets/confirmation_dialog.dart'; // Importa el diálogo
+import 'package:ztech_mobile_application/common/widgets/confirmation_dialog.dart';
+import 'package:ztech_mobile_application/profile/presentation/views/welcome_screen.dart'; // Importa el diálogo
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final LocalPersistance _localPersistance = LocalPersistance();
   int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
@@ -28,7 +32,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           message: 'Are you sure you want to log out?',
           onYesPressed: () {
             // Lógica para cerrar sesión
-            Navigator.of(context).pop(); // Cierra el diálogo
+            _localPersistance.logout();
+            FirebaseAuth.instance.signOut();
+            Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+            (Route<dynamic> route) => false,
+          );
           },
           onNoPressed: () {
             Navigator.of(context).pop(); // Cierra el diálogo

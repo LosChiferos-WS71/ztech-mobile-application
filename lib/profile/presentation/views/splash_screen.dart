@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztech_mobile_application/common/utils/local_persistance.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,14 +9,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
   @override
   void initState() {
     super.initState();
+    _checkUserAndNavigate();
+  }
 
-    // Navegar a la pantalla de inicio después de 3 segundos
-    Future.delayed(const Duration(seconds: 4), () {
+  Future<void> _checkUserAndNavigate() async {
+    // Espera 4 segundos antes de la comprobación
+    await Future.delayed(const Duration(seconds: 4));
+    
+    final localPersistance = LocalPersistance();
+    final user = await localPersistance.getUser();
+
+    // Navegar según la existencia del usuario
+    if (user != null && user.isNotEmpty) {
+      Navigator.of(context).pushReplacementNamed("flowerpots");
+    } else {
       Navigator.of(context).pushReplacementNamed("welcome");
-    });
+    }
   }
 
   @override
